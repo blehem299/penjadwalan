@@ -1,28 +1,30 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+	<div id="app" class="container">
+		<Navbar/>
+		<router-view class="py-4"/>
+	</div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+	import Navbar from '@/components/Navbar.vue'
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+	export default {
+		components: {
+			Navbar
+		},
+		mounted(){
+// localStorage.removeItem("StoreData")
+			if(localStorage.getItem("StoreData") === null){
+				const data = { "pengajars" : [], "totalJam" : 0 }
+				localStorage.setItem("StoreData", JSON.stringify(data))
+			}
+
+			const data = JSON.parse(localStorage.getItem("StoreData"))
+
+			console.log(this.$checkId(data.pengajars))
+		}
+	}
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
